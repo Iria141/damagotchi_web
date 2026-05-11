@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Damagotchi — Tu compañera de embarazo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rosa: #F2A7C3;
+      --rosa-claro: #FDE8F4;
+      --morado: #7B3FA0;
+      --morado-oscuro: #4A1A6A;
+      --morado-claro: #9B5FC0;
+      --crema: #FFF8FF;
+      --texto: #2A0A3A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--crema);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(255,248,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(123,63,160,0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--morado);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-btn {
+      background: var(--morado);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-btn:hover { background: var(--morado-oscuro); transform: scale(1.04); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+      background: linear-gradient(160deg, #FDE8F4 0%, #EDD0F8 50%, #D5B0F0 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      background: rgba(123,63,160,0.12);
+      color: var(--morado);
+      border: 1px solid rgba(123,63,160,0.25);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 10vw, 80px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--morado-oscuro);
+      margin-bottom: 12px;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span { color: var(--morado-claro); }
+
+    .hero-sub {
+      font-size: clamp(16px, 3vw, 20px);
+      color: var(--morado);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+
+    .btn-primary {
+      background: var(--morado);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { background: var(--morado-oscuro); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(123,63,160,0.3); }
+
+    .btn-secondary {
+      background: white;
+      color: var(--morado);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid var(--morado);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--rosa-claro); transform: translateY(-2px); }
+
+    /* SCREENSHOTS */
+    .screenshots {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .screenshot {
+      width: 160px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(74,26,106,0.25);
+      border: 3px solid rgba(255,255,255,0.8);
+      transition: transform 0.3s;
+    }
+    .screenshot:hover { transform: translateY(-8px) rotate(-1deg); }
+    .screenshot:nth-child(2) { transform: translateY(-16px); }
+    .screenshot:nth-child(2):hover { transform: translateY(-24px) rotate(1deg); }
+
+    /* STATS */
+    .stats {
+      background: var(--morado);
+      padding: 60px 24px;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .stat-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--rosa);
+      line-height: 1;
+    }
+
+    .stat-item p {
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* SECCIONES */
+    section {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--morado);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--rosa);
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 900;
+      color: var(--morado-oscuro);
+      line-height: 1.1;
+      margin-bottom: 40px;
+      letter-spacing: -1px;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(123,63,160,0.1);
+      transition: all 0.3s;
+      box-shadow: 0 2px 12px rgba(123,63,160,0.06);
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(123,63,160,0.15);
+      border-color: rgba(123,63,160,0.25);
+    }
+
+    .feature-emoji { font-size: 36px; margin-bottom: 14px; }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--morado-oscuro);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #6B5A7A;
+      line-height: 1.6;
+    }
+
+    /* DESCARGA */
+    .descarga-section {
+      background: linear-gradient(135deg, #F5E8FF 0%, #FFE8F4 100%);
+      border-radius: 32px;
+      padding: 60px 40px;
+      text-align: center;
+      margin: 0 24px;
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: white;
+      border: 1px solid rgba(123,63,160,0.2);
+      border-radius: 16px;
+      padding: 20px 28px;
+      margin: 12px auto;
+      max-width: 400px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(123,63,160,0.08);
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123,63,160,0.18);
+      border-color: var(--morado);
+    }
+
+    .download-icon { font-size: 28px; }
+
+    .download-info { text-align: left; flex: 1; }
+    .download-info span {
+      display: block;
+      font-size: 11px;
+      color: #9B8AAA;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .download-info strong {
+      font-size: 16px;
+      color: var(--morado-oscuro);
+      font-weight: 700;
+    }
+
+    .download-arrow {
+      color: var(--morado);
+      font-size: 20px;
+    }
+
+    .coming-soon {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .coming-soon:hover { transform: none; box-shadow: 0 2px 12px rgba(123,63,160,0.08); }
+
+    /* CONTACTO */
+    .contacto-section {
+      background: var(--morado-oscuro);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .contacto-section .section-label { justify-content: center; color: var(--rosa); }
+    .contacto-section h2 { color: white; text-align: center; }
+
+    .contact-form {
+      max-width: 480px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 40px;
+    }
+
+    .form-group { margin-bottom: 20px; text-align: left; }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--rosa);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--rosa); }
+    .form-group textarea { height: 120px; resize: none; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--rosa);
+      color: var(--morado-oscuro);
+      border: none;
+      padding: 16px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: white; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--morado-oscuro);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--rosa);
+      margin-bottom: 12px;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.45);
+      font-size: 13px;
+    }
+
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: var(--rosa); }
+
+    /* ANIMACIONES */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1, .hero-sub, .hero-btns, .hero-badges {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-badges { animation-delay: 0.1s; }
+    .hero h1 { animation-delay: 0.2s; }
+    .hero-sub { animation-delay: 0.3s; }
+    .hero-btns { animation-delay: 0.4s; }
+    .screenshots { animation: fadeUp 0.7s 0.5s ease both; }
+
+    @media (max-width: 600px) {
+      nav { padding: 12px 20px; }
+      .hero { padding: 90px 20px 40px; }
+      .screenshot { width: 120px; }
+      .descarga-section { padding: 40px 24px; margin: 0 12px; }
+      .contact-form { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">🌸 Damagotchi</div>
+    <a href="#descarga" class="nav-btn">Descargar →</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badges">
+      <span class="badge">📱 Android</span>
+      <span class="badge">🆓 Gratis</span>
+      <span class="badge">🌸 Embarazo</span>
+      <span class="badge">2026</span>
+    </div>
+
+    <h1>Tu compañera<br><span>de embarazo</span></h1>
+    <p class="hero-sub">Cuida a tu personaje, explora las estancias y vive las 40 semanas de gestación de una forma diferente, divertida e informativa.</p>
+
+    <div class="hero-btns">
+      <a href="#descarga" class="btn-primary">⬇️ Descargar APK</a>
+      <a href="#caracteristicas" class="btn-secondary">Ver más</a>
+    </div>
+
+    <div class="screenshots">
+      <img src="1000004671.jpg" alt="Menú principal" class="screenshot">
+      <img src="1000004674.jpg" alt="Seguimiento" class="screenshot">
+      <img src="1000004675.jpg" alt="Comunidad" class="screenshot">
+      <img src="1000004672.jpg" alt="Modo juego" class="screenshot">
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3>40</h3>
+        <p>Semanas de embarazo</p>
+      </div>
+      <div class="stat-item">
+        <h3>6</h3>
+        <p>Habitaciones</p>
+      </div>
+      <div class="stat-item">
+        <h3>+10</h3>
+        <p>Acciones</p>
+      </div>
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p>Gratis</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARACTERÍSTICAS -->
+  <section id="caracteristicas">
+    <div class="section-label">La app</div>
+    <h2>Todo lo que<br>necesitas durante<br>el embarazo</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-emoji">🎮</div>
+        <h3>Modo juego</h3>
+        <p>Cuida a tu personaje manteniendo sus 6 medidores en buen estado. Cocina, descansa, pasea y mucho más.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji">🤰</div>
+        <h3>Seguimiento</h3>
+        <p>Consejos y anuncios adaptados a tu semana de gestación. La información se actualiza con cada trimestre.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji">💬</div>
+        <h3>Comunidad</h3>
+        <p>Comparte experiencias, dudas y consejos con otras mamás. Comenta, da likes y recibe notificaciones.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji">🎨</div>
+        <h3>Minijuegos</h3>
+        <p>Piano, pintura, estiramientos, cocina interactiva y mucho más. Cada habitación tiene su propia mecánica.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji">👶</div>
+        <h3>Personaje dinámico</h3>
+        <p>Tu personaje cambia según el trimestre y su estado emocional. Cuídala bien y la verás feliz.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-emoji">🏆</div>
+        <h3>Evaluación final</h3>
+        <p>Al llegar a la semana 40 recibirás una nota según cómo hayas cuidado a tu personaje durante todo el proceso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCARGA -->
+  <div id="descarga">
+    <div class="descarga-section">
+      <div class="section-label" style="justify-content:center">Descarga</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,48px);font-weight:900;color:var(--morado-oscuro);margin-bottom:12px;letter-spacing:-1px;">Gratis para Android</h2>
+      <p style="color:#6B5A7A;margin-bottom:40px;font-size:16px;">Disponible próximamente · Sin registro · Sin pago</p>
+
+      <a href="#" class="download-btn coming-soon">
+        <span class="download-icon">📱</span>
+        <div class="download-info">
+          <span>Próximamente</span>
+          <strong>Descargar APK</strong>
+        </div>
+        <span class="download-arrow">↓</span>
+      </a>
+
+      <p style="margin-top:24px;font-size:13px;color:#9B8AAA;">El APK estará disponible en breve.<br>Vuelve pronto 🌸</p>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="contacto-section" id="contacto">
+    <div class="section-label">Contacto</div>
+    <h2>¿Tienes ideas, sugerencias o<br>quieres saludar?</h2>
+        <br>
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label>Correo</label>
+        <input type="email" placeholder="tu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="Cuéntanos algo..."></textarea>
+      </div>
+      <button class="form-submit">Enviar mensaje →</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🌸 Damagotchi</div>
+    <p>Hecho con dedicación por <strong style="color:rgba(255,255,255,0.7)">Iria</strong> · 2026</p>
+    <p style="margin-top:8px;"><a href="https://github.com/Iria141/Damagotchi_26" target="_blank">GitHub</a></p>
+  </footer>
+
+</body>
+</html>
