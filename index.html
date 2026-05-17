@@ -7,17 +7,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --rosa: #F2A7C3;
-      --rosa-claro: #FDE8F4;
-      --morado: #7B3FA0;
-      --morado-oscuro: #4A1A6A;
-      --morado-claro: #9B5FC0;
-      --crema: #FFF8FF;
-      --texto: #2A0A3A;
+      --rosa:          #F2A7C3;
+      --rosa-vivo:     #EE7FAE;
+      --rosa-fuerte:   #E0508E;
+      --rosa-claro:    #FDE8F4;
+      --rosa-palido:   #FFF0F8;
+
+      --morado:        #8B4FBE;
+      --morado-med:    #7038A8;
+      --morado-oscuro: #4E2478;
+      --morado-suave:  #C9A8E8;
+      --morado-fondo:  #F5EEFF;
+
+      --crema:         #FFFAFD;
+      --crema-med:     #F8EEF6;
+      --crema-borde:   #EDCFE6;
+
+      --texto:         #2E1040;
+      --texto-medio:   #7A4A7E;
+      --texto-suave:   #B08AB8;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -27,7 +38,6 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -36,9 +46,9 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 32px;
-      background: rgba(255,248,255,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(123,63,160,0.1);
+      background: rgba(255,250,253,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--crema-borde);
     }
 
     .nav-logo {
@@ -64,7 +74,6 @@
     }
     .nav-btn:hover { background: var(--morado-oscuro); transform: scale(1.04); }
 
-    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -72,7 +81,7 @@
       align-items: center;
       justify-content: center;
       padding: 100px 24px 60px;
-      background: linear-gradient(160deg, #FDE8F4 0%, #EDD0F8 50%, #D5B0F0 100%);
+      background: linear-gradient(150deg, #FDE8F4 0%, #F5DAEE 30%, #EDD0F5 60%, #DEC5F0 100%);
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -81,10 +90,19 @@
     .hero::before {
       content: '';
       position: absolute;
-      width: 600px; height: 600px;
+      width: 520px; height: 520px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      top: -100px; right: -100px;
+      background: radial-gradient(circle, rgba(242,167,195,0.28) 0%, transparent 70%);
+      top: -80px; right: -100px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,79,190,0.14) 0%, transparent 70%);
+      bottom: 0; left: -60px;
       pointer-events: none;
     }
 
@@ -93,13 +111,15 @@
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.6s 0.1s ease both;
     }
 
     .badge {
-      background: rgba(123,63,160,0.12);
-      color: var(--morado);
-      border: 1px solid rgba(123,63,160,0.25);
+      background: rgba(224,80,142,0.1);
+      color: var(--rosa-fuerte);
+      border: 1px solid rgba(224,80,142,0.22);
       padding: 6px 16px;
       border-radius: 50px;
       font-size: 13px;
@@ -112,19 +132,23 @@
       font-weight: 900;
       line-height: 1.05;
       color: var(--morado-oscuro);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       letter-spacing: -2px;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.6s 0.2s ease both;
     }
 
-    .hero h1 span { color: var(--morado-claro); }
+    .hero h1 span { color: var(--rosa-fuerte); }
 
     .hero-sub {
-      font-size: clamp(16px, 3vw, 20px);
-      color: var(--morado);
-      max-width: 520px;
-      line-height: 1.6;
-      margin-bottom: 40px;
+      font-size: clamp(16px, 3vw, 19px);
+      color: var(--texto-medio);
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 44px;
       font-weight: 400;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.6s 0.3s ease both;
     }
 
     .hero-btns {
@@ -132,7 +156,9 @@
       gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 60px;
+      margin-bottom: 64px;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.6s 0.4s ease both;
     }
 
     .btn-primary {
@@ -148,44 +174,44 @@
       align-items: center;
       gap: 8px;
     }
-    .btn-primary:hover { background: var(--morado-oscuro); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(123,63,160,0.3); }
+    .btn-primary:hover { background: var(--morado-oscuro); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(78,36,120,0.28); }
 
     .btn-secondary {
       background: white;
-      color: var(--morado);
+      color: var(--rosa-fuerte);
       padding: 16px 36px;
       border-radius: 50px;
       font-size: 16px;
       font-weight: 600;
       text-decoration: none;
-      border: 2px solid var(--morado);
+      border: 1.5px solid var(--rosa-vivo);
       transition: all 0.2s;
     }
-    .btn-secondary:hover { background: var(--rosa-claro); transform: translateY(-2px); }
+    .btn-secondary:hover { background: var(--rosa-palido); transform: translateY(-2px); }
 
-    /* SCREENSHOTS */
     .screenshots {
       display: flex;
       gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.7s 0.5s ease both;
     }
 
     .screenshot {
-      width: 160px;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(74,26,106,0.25);
-      border: 3px solid rgba(255,255,255,0.8);
+      width: 155px;
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(78,36,120,0.2);
+      border: 3px solid rgba(255,255,255,0.9);
       transition: transform 0.3s;
     }
     .screenshot:hover { transform: translateY(-8px) rotate(-1deg); }
-    .screenshot:nth-child(2) { transform: translateY(-16px); }
-    .screenshot:nth-child(2):hover { transform: translateY(-24px) rotate(1deg); }
+    .screenshot:nth-child(2) { transform: translateY(-18px); }
+    .screenshot:nth-child(2):hover { transform: translateY(-26px) rotate(1deg); }
 
-    /* STATS */
     .stats {
-      background: var(--morado);
-      padding: 60px 24px;
+      background: var(--morado-oscuro);
+      padding: 64px 24px;
       text-align: center;
     }
 
@@ -199,23 +225,22 @@
 
     .stat-item h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 48px;
+      font-size: 50px;
       font-weight: 900;
       color: var(--rosa);
       line-height: 1;
     }
 
     .stat-item p {
-      color: rgba(255,255,255,0.7);
-      font-size: 13px;
-      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
-    /* SECCIONES */
     section {
-      padding: 80px 24px;
+      padding: 88px 24px;
       max-width: 900px;
       margin: 0 auto;
     }
@@ -224,19 +249,20 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--morado);
-      letter-spacing: 2px;
+      color: var(--morado-med);
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .section-label::before {
       content: '';
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: var(--rosa);
+      background: var(--rosa-vivo);
+      flex-shrink: 0;
     }
 
     section h2 {
@@ -245,11 +271,10 @@
       font-weight: 900;
       color: var(--morado-oscuro);
       line-height: 1.1;
-      margin-bottom: 40px;
+      margin-bottom: 44px;
       letter-spacing: -1px;
     }
 
-    /* FEATURES */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -260,20 +285,20 @@
       background: white;
       border-radius: 20px;
       padding: 28px;
-      border: 1px solid rgba(123,63,160,0.1);
+      border: 1px solid var(--crema-borde);
       transition: all 0.3s;
-      box-shadow: 0 2px 12px rgba(123,63,160,0.06);
+      box-shadow: 0 2px 16px rgba(139,79,190,0.05);
     }
     .feature-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(123,63,160,0.15);
-      border-color: rgba(123,63,160,0.25);
+      box-shadow: 0 14px 36px rgba(139,79,190,0.13);
+      border-color: var(--morado-suave);
     }
 
-    .feature-emoji { font-size: 36px; margin-bottom: 14px; }
+    .feature-emoji { font-size: 34px; margin-bottom: 14px; }
 
     .feature-card h3 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--morado-oscuro);
       margin-bottom: 8px;
@@ -281,17 +306,17 @@
 
     .feature-card p {
       font-size: 14px;
-      color: #6B5A7A;
-      line-height: 1.6;
+      color: var(--texto-suave);
+      line-height: 1.65;
     }
 
-    /* DESCARGA */
     .descarga-section {
-      background: linear-gradient(135deg, #F5E8FF 0%, #FFE8F4 100%);
+      background: linear-gradient(135deg, var(--rosa-palido) 0%, var(--morado-fondo) 100%);
       border-radius: 32px;
-      padding: 60px 40px;
+      padding: 64px 40px;
       text-align: center;
       margin: 0 24px;
+      border: 1px solid var(--crema-borde);
     }
 
     .download-btn {
@@ -299,65 +324,76 @@
       align-items: center;
       gap: 16px;
       background: white;
-      border: 1px solid rgba(123,63,160,0.2);
+      border: 1px solid var(--crema-borde);
       border-radius: 16px;
       padding: 20px 28px;
       margin: 12px auto;
       max-width: 400px;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 2px 12px rgba(123,63,160,0.08);
+      transition: all 0.25s;
+      box-shadow: 0 2px 12px rgba(139,79,190,0.07);
     }
     .download-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(123,63,160,0.18);
-      border-color: var(--morado);
+      box-shadow: 0 10px 28px rgba(139,79,190,0.15);
+      border-color: var(--morado-suave);
     }
 
     .download-icon { font-size: 28px; }
-
     .download-info { text-align: left; flex: 1; }
     .download-info span {
       display: block;
       font-size: 11px;
-      color: #9B8AAA;
+      color: var(--texto-suave);
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-bottom: 2px;
     }
-    .download-info strong {
-      font-size: 16px;
-      color: var(--morado-oscuro);
-      font-weight: 700;
+    .download-info strong { font-size: 16px; color: var(--morado-oscuro); font-weight: 700; }
+    .download-arrow { color: var(--morado); font-size: 20px; }
+
+    .historia-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid var(--crema-borde);
+      box-shadow: 0 2px 16px rgba(139,79,190,0.05);
+    }
+    .historia-card .emoji { font-size: 34px; margin-bottom: 14px; }
+    .historia-card h3 { font-size: 17px; font-weight: 700; color: var(--morado-oscuro); margin-bottom: 8px; }
+    .historia-card p { font-size: 14px; color: var(--texto-suave); line-height: 1.65; }
+
+    .eventos-section {
+      background: linear-gradient(160deg, #2B1245 0%, #3E1A5A 50%, #4A1A44 100%);
+      padding: 88px 24px;
     }
 
-    .download-arrow {
-      color: var(--morado);
-      font-size: 20px;
+    .eventos-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+
+    .evento-pill {
+      display: inline-block;
+      background: rgba(242,167,195,0.12);
+      border: 1px solid rgba(242,167,195,0.28);
+      color: var(--rosa);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 5px;
     }
 
-    .coming-soon {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .coming-soon:hover { transform: none; box-shadow: 0 2px 12px rgba(123,63,160,0.08); }
-
-    /* CONTACTO */
     .contacto-section {
       background: var(--morado-oscuro);
-      padding: 80px 24px;
+      padding: 88px 24px;
       text-align: center;
     }
-
-    .contacto-section .section-label { justify-content: center; color: var(--rosa); }
-    .contacto-section h2 { color: white; text-align: center; }
 
     .contact-form {
       max-width: 480px;
       margin: 0 auto;
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 24px;
       padding: 40px;
     }
@@ -366,9 +402,9 @@
 
     .form-group label {
       display: block;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
       color: var(--rosa);
       margin-bottom: 8px;
@@ -377,8 +413,8 @@
     .form-group input,
     .form-group textarea {
       width: 100%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px;
       padding: 14px 16px;
       color: white;
@@ -388,15 +424,15 @@
       transition: border-color 0.2s;
     }
     .form-group input::placeholder,
-    .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.28); }
     .form-group input:focus,
-    .form-group textarea:focus { border-color: var(--rosa); }
+    .form-group textarea:focus { border-color: var(--rosa-vivo); }
     .form-group textarea { height: 120px; resize: none; }
 
     .form-submit {
       width: 100%;
-      background: var(--rosa);
-      color: var(--morado-oscuro);
+      background: var(--rosa-vivo);
+      color: white;
       border: none;
       padding: 16px;
       border-radius: 50px;
@@ -407,12 +443,11 @@
       transition: all 0.2s;
       margin-top: 8px;
     }
-    .form-submit:hover { background: white; transform: translateY(-2px); }
+    .form-submit:hover { background: var(--rosa-fuerte); transform: translateY(-2px); }
 
-    /* FOOTER */
     footer {
       background: var(--morado-oscuro);
-      border-top: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(255,255,255,0.07);
       padding: 32px 24px;
       text-align: center;
     }
@@ -425,47 +460,31 @@
       margin-bottom: 12px;
     }
 
-    footer p {
-      color: rgba(255,255,255,0.45);
-      font-size: 13px;
-    }
-
-    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer p { color: rgba(255,255,255,0.38); font-size: 13px; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
     footer a:hover { color: var(--rosa); }
 
-    /* ANIMACIONES */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(28px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .hero h1, .hero-sub, .hero-btns, .hero-badges {
-      animation: fadeUp 0.7s ease both;
-    }
-    .hero-badges { animation-delay: 0.1s; }
-    .hero h1 { animation-delay: 0.2s; }
-    .hero-sub { animation-delay: 0.3s; }
-    .hero-btns { animation-delay: 0.4s; }
-    .screenshots { animation: fadeUp 0.7s 0.5s ease both; }
 
     @media (max-width: 600px) {
       nav { padding: 12px 20px; }
       .hero { padding: 90px 20px 40px; }
-      .screenshot { width: 120px; }
-      .descarga-section { padding: 40px 24px; margin: 0 12px; }
-      .contact-form { padding: 28px 20px; }
+      .screenshot { width: 118px; }
+      .descarga-section { padding: 40px 20px; margin: 0 12px; }
+      .contact-form { padding: 28px 18px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-logo">🌸 Damagotchi</div>
     <a href="#descarga" class="nav-btn">Descargar →</a>
   </nav>
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-badges">
       <span class="badge">📱 Android</span>
@@ -484,36 +503,21 @@
 
     <div class="screenshots">
       <img src="1000004671.jpg" alt="Menú principal" class="screenshot">
-      <img src="1000004674.jpg" alt="Evento especial" class="screenshot">
       <img src="1000004672.jpg" alt="Modo juego" class="screenshot">
+      <img src="1000004674.jpg" alt="Evento especial" class="screenshot">
       <img src="1000004675.jpg" alt="Minijuego" class="screenshot">
-
     </div>
   </div>
 
-  <!-- STATS -->
   <div class="stats">
     <div class="stats-grid">
-      <div class="stat-item">
-        <h3>40</h3>
-        <p>Semanas de embarazo</p>
-      </div>
-      <div class="stat-item">
-        <h3>6</h3>
-        <p>Habitaciones</p>
-      </div>
-      <div class="stat-item">
-        <h3>+10</h3>
-        <p>Acciones</p>
-      </div>
-      <div class="stat-item">
-        <h3>100%</h3>
-        <p>Gratis</p>
-      </div>
+      <div class="stat-item"><h3>40</h3><p>Semanas de embarazo</p></div>
+      <div class="stat-item"><h3>6</h3><p>Habitaciones</p></div>
+      <div class="stat-item"><h3>+10</h3><p>Acciones</p></div>
+      <div class="stat-item"><h3>100%</h3><p>Gratis</p></div>
     </div>
   </div>
 
-  <!-- CARACTERÍSTICAS -->
   <section id="caracteristicas">
     <div class="section-label">La app</div>
     <h2>Todo lo que<br>necesitas durante<br>el embarazo</h2>
@@ -552,86 +556,71 @@
     </div>
   </section>
 
-  <!-- DESCARGA -->
   <div id="descarga">
     <div class="descarga-section">
       <div class="section-label" style="justify-content:center">Descarga</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,48px);font-weight:900;color:var(--morado-oscuro);margin-bottom:12px;letter-spacing:-1px;">Gratis para Android</h2>
 
-<a href="Damagotchi.apk" class="download-btn" download>
-  <span class="download-icon">📱</span>
-  <div class="download-info">
-    <span>Android · Gratis</span>
-    <strong>damagotchi.apk</strong>
-  </div>
-  <span class="download-arrow">↓</span>
-</a>
-
-<p style="margin-top:24px;font-size:13px;color:#9B8AAA;">Instala la app y activa "orígenes desconocidos" si te lo pide Android 🌸</p>    </div>
-  </div>
-
-<!-- HISTORIA REAL + EVENTOS ESPECIALES (sección unificada) -->
-  <div style="background:linear-gradient(160deg,#FDE8F4 0%,#EDD0F8 50%,#D5B0F0 100%);padding:80px 24px;">
-    <div style="max-width:900px;margin:0 auto;text-align:center;">
-
-      <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#7B3FA0;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;justify-content:center;">
-        <span style="width:8px;height:8px;border-radius:50%;background:#F2A7C3;display:inline-block;"></span>
-        Una historia real
-      </div>
-
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,52px);font-weight:900;color:#4A1A6A;line-height:1.1;margin-bottom:16px;letter-spacing:-1px;">Hecha desde<br>adentro</h2>
-
-      <p style="max-width:480px;margin:0 auto 48px;font-size:16px;color:#7B3FA0;line-height:1.7;">
-        Damagotchi no se inventó desde fuera. Cada detalle, cada mensaje y cada imagen
-        vienen de una experiencia real. La de quien la hizo.
-      </p>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:600px;margin:0 auto 72px;">
-        <div style="background:rgba(255,255,255,0.6);border-radius:20px;padding:28px;border:1px solid rgba(123,63,160,0.15);">
-          <div style="font-size:36px;margin-bottom:14px;">🩺</div>
-          <h3 style="font-size:17px;font-weight:700;color:#4A1A6A;margin-bottom:8px;">Imágenes reales</h3>
-          <p style="font-size:14px;color:#7B3FA0;line-height:1.6;">Las ecografías que aparecen en la app son fotos auténticas. Descúbrelas cuando llegue el momento.</p>
+      <a href="Damagotchi.apk" class="download-btn" download>
+        <span class="download-icon">📱</span>
+        <div class="download-info">
+          <span>Android · Gratis</span>
+          <strong>damagotchi.apk</strong>
         </div>
-        <div style="background:rgba(255,255,255,0.6);border-radius:20px;padding:28px;border:1px solid rgba(123,63,160,0.15);">
-          <div style="font-size:36px;margin-bottom:14px;">👨‍👩‍👦</div>
-          <h3 style="font-size:17px;font-weight:700;color:#4A1A6A;margin-bottom:8px;">Para toda la familia</h3>
-          <p style="font-size:14px;color:#7B3FA0;line-height:1.6;">Madre, padre o acompañante. Cada rol tiene su propia experiencia dentro de la app.</p>
-        </div>
-      </div>
+        <span class="download-arrow">↓</span>
+      </a>
 
-      <div style="width:60px;height:1px;background:rgba(123,63,160,0.2);margin:0 auto 64px;"></div>
-
-      <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#7B3FA0;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;justify-content:center;">
-        <span style="width:8px;height:8px;border-radius:50%;background:#F2A7C3;display:inline-block;"></span>
-        Momentos especiales
-      </div>
-
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,52px);font-weight:900;color:#4A1A6A;line-height:1.1;margin-bottom:16px;letter-spacing:-1px;">Hay sorpresas<br>en el camino</h2>
-
-      <p style="max-width:420px;margin:0 auto 48px;font-size:16px;color:#7B3FA0;line-height:1.7;">
-        En semanas clave del embarazo, la app te sorprende.<br>No te contamos más.
-      </p>
-
-      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:32px;">
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 1 🌱</span>
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 7 🩺</span>
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 13 🌟</span>
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 14 🩺</span>
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 22 🩺</span>
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 28 🎉</span>
-        <span style="background:rgba(123,63,160,0.12);border:1px solid rgba(123,63,160,0.25);color:#7B3FA0;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:500;">Semana 32 🩺</span>
-      </div>
-
-      <p style="font-size:13px;color:rgba(123,63,160,0.45);">Cada evento se muestra una única vez.</p>
+      <p style="margin-top:24px;font-size:13px;color:var(--texto-suave);">Instala la app y activa "orígenes desconocidos" si te lo pide Android 🌸</p>
     </div>
   </div>
 
+  <section id="historia" style="text-align:center;">
+    <div class="section-label" style="justify-content:center">Una historia real</div>
+    <h2>Hecha desde<br>adentro</h2>
+    <p style="max-width:480px;margin:0 auto 48px;font-size:16px;color:var(--texto-suave);line-height:1.7;">
+      Damagotchi no se inventó desde fuera. Cada detalle, cada mensaje y cada imagen vienen de una experiencia real.
+    </p>
 
-  <!-- CONTACTO -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:700px;margin:0 auto;">
+      <div class="historia-card">
+        <div class="emoji">🩺</div>
+        <h3>Imágenes reales</h3>
+        <p>Las ecografías que aparecen en la app son fotos auténticas. Descúbrelas cuando llegue el momento.</p>
+      </div>
+      <div class="historia-card">
+        <div class="emoji">👨‍👩‍👦</div>
+        <h3>Para toda la familia</h3>
+        <p>Madre, padre o acompañante. Cada rol tiene su propia experiencia dentro de la app.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="eventos-section">
+    <div class="eventos-inner">
+      <div class="section-label" style="justify-content:center;color:var(--rosa);">Momentos especiales</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,52px);font-weight:900;color:white;line-height:1.1;margin-bottom:16px;letter-spacing:-1px;">Hay sorpresas<br>en el camino</h2>
+      <p style="max-width:420px;margin:0 auto 52px;font-size:16px;color:rgba(255,255,255,0.5);line-height:1.7;">
+        En semanas clave del embarazo, la app te sorprende.<br>No te contamos más.
+      </p>
+
+      <div style="margin-bottom:32px;">
+        <span class="evento-pill">Semana 1 🌱</span>
+        <span class="evento-pill">Semana 7 🩺</span>
+        <span class="evento-pill">Semana 13 🌟</span>
+        <span class="evento-pill">Semana 14 🩺</span>
+        <span class="evento-pill">Semana 22 🩺</span>
+        <span class="evento-pill">Semana 28 🎉</span>
+        <span class="evento-pill">Semana 32 🩺</span>
+      </div>
+
+      <p style="font-size:13px;color:rgba(255,255,255,0.22);">Cada evento se muestra una única vez.</p>
+    </div>
+  </div>
+
   <div class="contacto-section" id="contacto">
-    <div class="section-label">Contacto</div>
-    <h2>¿Tienes ideas, sugerencias o<br>quieres saludar?</h2>
-        <br>
+    <div class="section-label" style="justify-content:center;color:var(--rosa);">Contacto</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:900;color:white;text-align:center;margin-bottom:8px;letter-spacing:-1px;">¿Tienes ideas, sugerencias o<br>quieres saludar?</h2>
+    <br>
     <div class="contact-form">
       <div class="form-group">
         <label>Nombre</label>
@@ -649,10 +638,9 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">🌸 Damagotchi</div>
-    <p>Hecho con dedicación por <strong style="color:rgba(255,255,255,0.7)">Iria</strong> · 2026</p>
+    <p>Hecho con dedicación por <strong style="color:rgba(255,255,255,0.65)">Iria</strong> · 2026</p>
     <p style="margin-top:8px;"><a href="https://github.com/Iria141/Damagotchi_26" target="_blank">GitHub</a></p>
   </footer>
 
