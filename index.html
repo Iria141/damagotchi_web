@@ -353,6 +353,41 @@
     .download-info strong { font-size: 16px; color: var(--morado-oscuro); font-weight: 700; }
     .download-arrow { color: var(--morado); font-size: 20px; }
 
+    .download-btn-debug {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.5);
+      border: 1.5px dashed #C9A8E8;
+      border-radius: 16px;
+      padding: 14px 28px;
+      margin: 8px auto;
+      max-width: 400px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      opacity: 0.8;
+    }
+    .download-btn-debug:hover {
+      opacity: 1;
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 6px 20px rgba(139,79,190,0.1);
+    }
+
+    .debug-badge {
+      display: inline-block;
+      background: rgba(139,79,190,0.1);
+      color: var(--morado-med);
+      border: 1px solid rgba(139,79,190,0.25);
+      border-radius: 50px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      margin-bottom: 4px;
+    }
+
     .historia-card {
       background: white;
       border-radius: 20px;
@@ -561,7 +596,7 @@
       <div class="section-label" style="justify-content:center">Descarga</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,48px);font-weight:900;color:var(--morado-oscuro);margin-bottom:12px;letter-spacing:-1px;">Gratis para Android</h2>
 
-      <a href="Damagotchi.apk" class="download-btn" download>
+      <a href="Damagotchi_26.apk" class="download-btn" download>
         <span class="download-icon">📱</span>
         <div class="download-info">
           <span>Android · Gratis</span>
@@ -570,13 +605,22 @@
         <span class="download-arrow">↓</span>
       </a>
 
+      <a href="Damagotchi_Testing.apk" class="download-btn-debug" download>
+        <span class="download-icon" style="font-size:22px;opacity:0.7;">🧪</span>
+        <div class="download-info">
+          <span class="debug-badge">Debug · Testing</span>
+          <strong style="font-size:14px;color:var(--morado-med);">Versión rápida de pruebas</strong>
+        </div>
+        <span class="download-arrow" style="font-size:16px;opacity:0.6;">↓</span>
+      </a>
+
       <p style="margin-top:24px;font-size:13px;color:var(--texto-suave);">Instala la app y activa "orígenes desconocidos" si te lo pide Android 🌸</p>
     </div>
   </div>
 
   <section id="historia" style="text-align:center;">
     <div class="section-label" style="justify-content:center">Una historia real</div>
-    <h2>Hecha desde<br>adentro</h2>
+    <h2>Hecha desde dentro</h2>
     <p style="max-width:480px;margin:0 auto 48px;font-size:16px;color:var(--texto-suave);line-height:1.7;">
       Damagotchi no se inventó desde fuera. Cada detalle, cada mensaje y cada imagen vienen de una experiencia real.
     </p>
